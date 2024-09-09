@@ -1,13 +1,13 @@
 T = int(input())
-for tc in range(1, T + 1):
+for tc in range(1, T+1):
     A, B, C = map(int, input().split())
-    result = 0
-    while B >= C:
+    eat = 0
+    while C <= B:
         B -= 1
-        result += 1
-    while A >= B:
+        eat += 1
+    while B <= A:
         A -= 1
-        result += 1
-    if C < 3 or A < 1 or B < 1:
-        result = -1
-    print(f"#{tc} {result}")
+        eat += 1
+    if A < 1:
+        eat = -1
+    print(f"#{tc} {eat}")
