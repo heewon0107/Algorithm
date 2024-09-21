@@ -1,3 +1,5 @@
+answer = [0]
+
 def sasam(n, idx, total):
     global sum_list
     if n == 3:
@@ -14,4 +16,7 @@ for t in range(1, T+1):
     sum_list = []
     sasam(0, 0, 0)
     sum_list.sort(reverse=True)
-    print(f"#{t} {sum_list[4]}")
+    answer.append(sum_list[4])
+
+for tc in range(1, T+1):
+    print(f"#{tc} {answer[tc]}")
