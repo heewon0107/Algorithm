@@ -21,6 +21,7 @@ def dijkstra(r, c):
             if is_valid(nr, nc) and board[nr][nc] == board[r][c] + 1:
                 q.append((nr, nc))
                 cnt += 1
+                break
 
     if cnt > result[1]:
         result[0] = first_num
