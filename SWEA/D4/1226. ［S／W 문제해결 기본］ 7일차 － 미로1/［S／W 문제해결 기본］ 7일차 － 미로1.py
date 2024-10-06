@@ -1,3 +1,5 @@
+from collections import deque
+
 def is_valid(r, c):
     return maze[r][c] == "0" or maze[r][c] == "3"
 
@@ -16,13 +18,16 @@ def dfs(r, c):
         nr = r + dr
         nc = c + dc
         if is_valid(nr, nc) and not visited[nr][nc]:
-            dfs(nr, nc)
-
+            q.append((nr, nc))
+    while q:
+        r, c = q.pop()
+        dfs(r, c)
 t = 10
 for tc in range(1, 10 + 1):
     num = input()
     maze = [input() for _ in range(16)]
     result = 0
+    q = deque()
     visited = [[0] * 16 for _ in range(16)]
     # 시작점 찾고 dfs 실행
     start_check = 0
