@@ -49,8 +49,8 @@ public class Main {
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);
         }
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
+         System.out.println(sb.toString());
+       
+        
     }
 }
