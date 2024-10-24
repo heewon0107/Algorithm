@@ -39,36 +39,42 @@ public class Main {
         // 위에 있음 안돼 j_chk
         for (int j = 0; j < N; j++) {
             if (!visited[j]) {// 위 쪽에 퀸이 없다.
-                boolean can_go = true; // 대각 탐색 가능하다.
-
+                boolean can = true;
                 int nr = row - 1;
                 int nc_left = j - 1;
                 // 좌상 탐색
                 while (0 <= nr && 0 <= nc_left) {
                     // if문을 만나지 않으면 갈 수 있음.
                     if (board[nr][nc_left] == 1) {
-                        can_go = false;
+                        can = false;
+                        break;
                     }
                     nr--;
                     nc_left--;
+                }
+                if (!can) {
+                    continue;
                 }
                 nr = row - 1;
                 int nc_right = j + 1;
                 // 우상 탐색
                 while (0 <= nr && nc_right < N) {
                     if (board[nr][nc_right] == 1) {
-                        can_go = false;
+                        can = false;
+                        break;
                     }
                     nr--;
                     nc_right++;
                 }
-                if (can_go) {
-                    board[row][j] = 1;
-                    visited[j] = true;
-                    queen(row + 1);
-                    board[row][j] = 0;
-                    visited[j] = false;
+                if (!can) {
+                    continue;
                 }
+                board[row][j] = 1;
+                visited[j] = true;
+                queen(row + 1);
+                board[row][j] = 0;
+                visited[j] = false;
+
             }
         }
 
