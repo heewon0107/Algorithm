@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
@@ -8,36 +9,24 @@ public class Solution {
         int n = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
+
         for (int tc = 1; tc <= n; tc++) {
-            boolean[] numberCheck = new boolean[10];
+            HashSet<Character> countSet = new HashSet<>();
+
             String stringNumber = br.readLine();
             int multiplyNumber = Integer.parseInt(stringNumber);
-            int multiplyCount = 1;
-            while (true) {
-                stringNumber = multiply(multiplyNumber, multiplyCount++);
-
+            int mNum = 1;
+            while (countSet.size() < 10) {
+                stringNumber =  String.valueOf(multiplyNumber * mNum);
+                mNum++;
                 for (int i = 0; i < stringNumber.length(); i++) {
-                    numberCheck[stringNumber.charAt(i) - '0'] = true;
+                    countSet.add(stringNumber.charAt(i));
                 }
-                // if allCheck, break!
-                boolean allChecked = true;
-                for (boolean check : numberCheck) {
-                    if (!check) {
-                        allChecked = false;
-                        break;
-                    }
-                }
-                if (allChecked) break;
             }
-
-
 
             sb.append("#" + tc + " " + stringNumber + "\n");
         }
         System.out.println(sb.toString().trim());
 
-    }
-    public static String multiply(int target, int n) {
-        return String.valueOf(target * n);
     }
 }
