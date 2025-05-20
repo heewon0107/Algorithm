@@ -1,67 +1,87 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-    static int V,E,N1,N2, result;
-    static int[] left,right;
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int T = Integer.parseInt(br.readLine());
-
+        StringBuilder sb = new StringBuilder();
+        int T = Integer.parseInt(br.readLine()); // 테스트케이스
         for (int tc = 1; tc <= T; tc++) {
+
             StringTokenizer st = new StringTokenizer(br.readLine());
-            V = Integer.parseInt(st.nextToken());
-            E = Integer.parseInt(st.nextToken());
-            N1 = Integer.parseInt(st.nextToken());
-            N2 = Integer.parseInt(st.nextToken());
-            result = 0;
-            left = new int[V+1]; right = new int[V+1];
-            int[] parent = new int[V+1];
-            StringTokenizer lst = new StringTokenizer(br.readLine());
+            int V = Integer.parseInt(st.nextToken());
+            int E = Integer.parseInt(st.nextToken());
+            int num1 = Integer.parseInt(st.nextToken());
+            int num2 = Integer.parseInt(st.nextToken());
+            int[] tree = new int[V + 1];
+            int[] left = new int[V + 1];
+            int[] right = new int[V + 1];
+            int[] parents = new int[V + 1];
+
+            // 트리 채우기
+            st = new StringTokenizer(br.readLine());
             for (int i = 0; i < E; i++) {
-                int s = Integer.parseInt(lst.nextToken());
-                int e = Integer.parseInt(lst.nextToken());
-                if (left[s] == 0) {
-                    left[s] = e;
+                int parent = Integer.parseInt(st.nextToken());
+                int child = Integer.parseInt(st.nextToken());
+                parents[child] = parent;
+
+                // 왼쪽 자식 있으면 오른쪽에 넣기.
+                if (left[parent] != 0) {
+                    right[parent] = child;
                 } else {
-                    int temp = left[s];
-                    left[s] = Math.min(temp, e);
-                    right[s] = Math.max(temp, e);
+                    left[parent] = child;
                 }
-                parent[e] = s;
             }
 
-            int sameParent = N1;
-            int node;
-            while (parent[sameParent] != 0) {
-                node = sameParent;
-                sameParent = parent[sameParent];
-                parent[node] = -1;
-            }
-            parent[sameParent] = -1;
+            int ancestor = findAncestor(parents, num1, num2);
+            int treeSize = getSubTree(left, right, ancestor);
 
-            sameParent = N2;
-            while (parent[sameParent] != -1) {
-                sameParent = parent[sameParent];
-            }
-            
-            tree(sameParent);
-            StringBuilder sb = new StringBuilder();
-            sb.append("#" + tc + " " + sameParent + " " + result);
-            bw.write(sb.toString());
-            bw.newLine();
+            sb.append("#" + tc + " " + ancestor + " " + treeSize + "\n");
         }
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
+
     }
-    private static void tree(int node) {
-        if (node == 0) {
-            return;
+    
+    // 깊이 찾기 함수
+    private static int getDepth(int[] parents, int node) {
+        int depth = 0;
+        while (node != 0) {
+            node = parents[node];
+            depth++;
         }
-        result++;
-        tree(left[node]);
-        tree(right[node]);
+        return depth;
     }
+    // 공통 조상 찾기 함수
+    private static int findAncestor(int[] parents, int num1, int num2) {
+        int leftD = getDepth(parents, num1);
+        int rightD = getDepth(parents, num2);
+        
+        while (leftD > rightD) {
+            leftD--;
+            num1 = parents[num1];
+        }
+        
+        while (rightD > leftD) {
+            rightD--;
+            num2 = parents[num2];
+        }
+        
+        while (num1 != num2) {
+            num1 = parents[num1];
+            num2 = parents[num2];
+        }
+        return num1;
+    }
+
+    // 서브트리 개수 함수
+    private static int getSubTree(int[] left, int[] right, int node) {
+        if (node == 0) return 0;
+        return 1
+                + getSubTree(left, right, left[node])
+                + getSubTree(left, right, right[node]);
+    }
+
 }
