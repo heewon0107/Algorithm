@@ -1,12 +1,13 @@
-import heapq
+from collections import deque
 
 def dijkstra(s, n, graph):
     dijk = [1e9] * (n+1)
     dijk[s] = 0
-    q = [(0, s)]
+    q = deque()
+    q.append((0, s))
     
     while q:
-        fare, node = heapq.heappop(q)
+        fare, node = q.popleft()
         # 이미 최소값
         if dijk[node] < fare:
             continue
@@ -15,7 +16,7 @@ def dijkstra(s, n, graph):
             new_fare = fare + next_fare
             if new_fare < dijk[next_node]:
                 dijk[next_node] = new_fare
-                heapq.heappush(q, (new_fare, next_node))
+                q.append((new_fare, next_node))
     return dijk
        
 def solution(n, s, a, b, fares):
