@@ -2,15 +2,15 @@ def solution(id_list, report, k):
     from collections import defaultdict
     
     # 신고 당한 수 dict
-    claim_dic = defaultdict(set)
+    claim_dic = defaultdict(list)
     
     # 메일 수 dict
     mail_dic = defaultdict(int)
     
     # 신고
-    for r in report:
+    for r in set(report):
         a, b = r.split(" ")
-        claim_dic[b].add(a)
+        claim_dic[b].append(a)
     
     # 메일
     for v in claim_dic.values():
