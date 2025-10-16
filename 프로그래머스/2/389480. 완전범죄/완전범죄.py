@@ -19,10 +19,11 @@ def solution(info, n, m):
             return
         
         state = (idx, a, b)
+        
         if state in visited:
             return
-        visited.add(state)
         
+        visited.add(state)
         
         fn(idx + 1, a + info[idx][0], b)
         fn(idx + 1, a, b + info[idx][1])
