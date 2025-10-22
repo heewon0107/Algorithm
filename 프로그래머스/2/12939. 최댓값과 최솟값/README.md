@@ -1,10 +1,10 @@
 # [level 2] 최댓값과 최솟값 - 12939 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12939) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12939?language=python3) 
 
 ### 성능 요약
 
-메모리: 33.4 MB, 시간: 0.13 ms
+메모리: 9.25 MB, 시간: 0.06 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 08월 08일 19:50:55
+2025년 10월 22일 14:53:26
 
 ### 문제 설명
 
