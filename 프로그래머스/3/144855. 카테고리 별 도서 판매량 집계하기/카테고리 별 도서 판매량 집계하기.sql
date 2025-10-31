@@ -1,0 +1,19 @@
+# 1. BOOK_SALES의 2022-01 분류
+# 2. BOOK_ID JOIN
+# 3. 카테고리별 총 판매량 집계
+
+SELECT  A.CATEGORY,
+        SUM(B.SALES) AS TOTAL_SALES
+        
+  FROM  BOOK AS A
+        JOIN
+        BOOK_SALES AS B
+        ON A.BOOK_ID = B.BOOK_ID
+
+ WHERE  '2022-01' = SUBSTR(B.SALES_DATE,1,7)
+ 
+ GROUP
+    BY  A.CATEGORY
+
+ ORDER
+    BY  A.CATEGORY
