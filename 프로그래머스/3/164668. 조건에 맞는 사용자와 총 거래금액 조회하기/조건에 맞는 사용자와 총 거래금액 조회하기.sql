@@ -1,0 +1,24 @@
+# 1. 완료된 거래
+# 2. WRITER_ID = USER_ID 쪼인
+# 3. ID로 GROUPING 후 SUM(PRICE) > 70만원
+
+SELECT  B.USER_ID,
+        B.NICKNAME,
+        SUM(PRICE) AS TOTAL_SALES
+
+  FROM  USED_GOODS_BOARD AS A
+        JOIN
+        USED_GOODS_USER AS B
+        ON A.WRITER_ID = B.USER_ID
+
+ WHERE  A.STATUS = 'DONE'
+ 
+ GROUP
+    BY  B.USER_ID
+
+HAVING  SUM(PRICE) >= 700000
+  
+ ORDER
+    BY  TOTAL_SALES
+  
+  
