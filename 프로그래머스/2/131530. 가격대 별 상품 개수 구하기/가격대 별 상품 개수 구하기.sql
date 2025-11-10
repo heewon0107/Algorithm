@@ -1,0 +1,13 @@
+# 1. 가격대 별로 그룹핑
+# 2. 카운트 수 SELECT
+
+SELECT FLOOR(PRICE / 10000) * 10000 AS PRICE_GROUP,
+       COUNT(*) AS PRODUCTS
+       
+  FROM  PRODUCT
+  
+ GROUP
+    BY  FLOOR(PRICE / 10000)
+    
+ ORDER
+    BY  PRICE_GROUP
