@@ -1,0 +1,32 @@
+# A: FRONT - (16 + 2048 + 8192) AND PYTHON - 256
+# B: C# - 1024
+# C: NOT A,B FRONT == NOT PYTHON
+
+SELECT  
+    CASE
+        WHEN SKILL_CODE & (SELECT SUM(CODE) FROM SKILLCODES WHERE CATEGORY LIKE 'F%') AND 
+             SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = 'Python')
+             THEN 'A'
+             
+        WHEN SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = 'C#')
+             THEN 'B'
+        
+        WHEN SKILL_CODE & (SELECT SUM(CODE) FROM SKILLCODES WHERE CATEGORY LIKE 'F%') AND
+             NOT SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = 'Python')
+             THEN 'C'
+        ELSE NULL
+        END AS GRADE,
+                
+        ID,
+        EMAIL
+    
+  FROM  DEVELOPERS
+ 
+#  GROUP
+#     BY  GRADE, ID, EMAIL
+ 
+HAVING  GRADE IS NOT NULL
+
+ ORDER 
+    BY  GRADE, ID
+
