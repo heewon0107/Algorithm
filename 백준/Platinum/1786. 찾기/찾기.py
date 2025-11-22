@@ -29,5 +29,4 @@ while i < len(text):
         else:
             i += 1
 print(cnt)
-for r in result:
-    print(r, end = ' ')
+print(' '.join(map(str, result)))
