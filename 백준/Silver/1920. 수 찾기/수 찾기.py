@@ -4,7 +4,7 @@ M = int(input())
 lst = list(map(int, input().split()))
 
 A.sort()
-answer = ''
+answer = []
 for n in lst:
     left = 0
     right = N-1
@@ -12,7 +12,6 @@ for n in lst:
     while left <= right:
         mid = (left + right) // 2
         if A[mid] == n:
-            answer += '1\n'
             can_find = True
             break
         elif A[mid] < n:
@@ -20,7 +19,6 @@ for n in lst:
         elif A[mid] > n:
             right = mid - 1
 
-    if not can_find:
-        answer += '0\n'
+    answer.append('1' if can_find else '0')
 
-print(answer)
+print('\n'.join(answer))
