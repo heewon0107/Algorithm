@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 def solution():
     N, game = input().split()
     games = {
