@@ -1,0 +1,13 @@
+# 입양 간 기록은 있는데 들어온 기록이 없는(ANIMAL_OUTS에만 있다.)
+SELECT  B.ANIMAL_ID,
+        B.NAME
+
+  FROM  ANIMAL_INS A 
+        RIGHT OUTER JOIN
+        ANIMAL_OUTS B
+        ON A.ANIMAL_ID = B.ANIMAL_ID
+
+ WHERE  A.ANIMAL_ID IS NULL
+ 
+ ORDER
+    BY  B.ANIMAL_ID
