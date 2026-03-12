@@ -1,0 +1,23 @@
+# 세대가 나타나는 테이블
+WITH RECURSIVE NEW_ECOLI_DATA AS (
+    SELECT ID, PARENT_ID, 1 AS GENERATION
+    FROM ECOLI_DATA
+    WHERE PARENT_ID IS NULL
+    UNION
+    SELECT B.ID, B.PARENT_ID, A.GENERATION + 1
+    FROM NEW_ECOLI_DATA A JOIN ECOLI_DATA B ON A.ID = B.PARENT_ID
+)
+SELECT  COUNT(*) AS COUNT, GENERATION
+
+  FROM  NEW_ECOLI_DATA
+        # 자식이 없는 ID
+ WHERE  ID NOT IN ( # 자식이 있는 부모의 아이디
+                    SELECT PARENT_ID
+                      FROM NEW_ECOLI_DATA
+                     WHERE PARENT_ID IS NOT NULL
+                  )
+ GROUP
+    BY  GENERATION
+
+ ORDER
+    BY  2
