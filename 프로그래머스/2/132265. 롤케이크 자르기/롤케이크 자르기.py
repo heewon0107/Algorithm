@@ -8,17 +8,18 @@ def solution(topping):
     for t in topping:
         right[t] += 1
     
-    for i in range(len(topping)-1):
+    
+    N = len(topping)
+    
+    for i in range(N - 1):
         t = topping[i]
-        
         left.add(t)
         right[t] -= 1
         
         if not right[t]:
-            del right[t]
+            del right[t]            
         
         if len(left) == len(right):
-            answer += 1
-        
+            answer += 1     
         
     return answer
