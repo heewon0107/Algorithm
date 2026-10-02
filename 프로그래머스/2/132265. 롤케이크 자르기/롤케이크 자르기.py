@@ -21,5 +21,7 @@ def solution(topping):
         
         if len(left) == len(right):
             answer += 1     
-        
+        elif len(left) > len(right):
+            break
+            
     return answer
